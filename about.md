@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Home
+title: About
 ---
 
 <section class="intro">
-  <h2>Meet the Team!</h2>
+  <h2>Shdowing the Legacy Survey of Space and Time</h2>
   <p>
-    A group of lovely humans!
+    Our amazing science
   </p>
 </section>
