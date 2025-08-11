@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      background-color: #121212;
+      background-color: #222222;
       color: #f5f5f5;
       line-height: 1.6;
     }
@@ -54,6 +54,8 @@
       <a href="/">Home</a> |
       <a href="/about/">About</a> |
       <a href="/team/">Team</a> |
+      <a href="/team/">Transients!!!</a> |
+      <a href="/News/">News</a> |
       <a href="/publications/">Publications</a>
     </nav>
   </header>
