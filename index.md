@@ -4,9 +4,10 @@ title: Home
 ---
 
 <div class="intro">
-  <img src="image2.jpg" alt="Observing Program" class="intro-image">
+  
   <h1>{{ site.title }}</h1>
-  <p class="tagline">A large, collaborative sky survey for exploring the transient Universe.</p>
+  <p class="tagline">A collaboration of humans who want to find things that go bump in the night.</p>
+  <img src="image2.jpg" alt="Observing Program" class="intro-image">
 </div>
 
 <section class="about">
