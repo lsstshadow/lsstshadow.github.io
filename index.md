@@ -5,7 +5,7 @@ title: Home
 
 <div class="intro">
   
-  <h1>&#128123{ site.title }&#128123</h1>
+  <h1>{:shark:{ site.title }:shark:}</h1>
   <p class="tagline">A collaboration of humans who want to find things that go bump in the night.</p>
   <img src="image.jpeg" alt="Observing Program" class="intro-image">
 </div>
