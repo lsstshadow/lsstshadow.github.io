@@ -31,7 +31,7 @@ title: Home
 
 <script>
   const team = [
-    { name: "Richard Gecko", role: "Overlord", photo: "/assets/team/richard.jpg" },
+    { name: "Richard Gecko", role: "Overlord", photo: "richard.jpg" },
   ];
 
   // Pick based on day of the year so it changes daily
