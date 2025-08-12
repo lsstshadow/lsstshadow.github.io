@@ -11,8 +11,6 @@ title: Home
 
 <section class="about">
   <p>
-    Welcome to the {{ site.title }} homepage. Our program brings together astronomers from around the world
-    to observe and study rare cosmic events, using some of the most advanced telescopes on Earth and in space.
-    Here you’ll find project updates, datasets, publications, and opportunities to get involved.
+    Welcome to the {{ site.title }} homepage. We will be doing cool science with DECam as we shadow LSST, focussing on nearby galaxy clusters in order to find young transients!
   </p>
 </section>
