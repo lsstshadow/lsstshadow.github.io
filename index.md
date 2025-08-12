@@ -4,7 +4,7 @@ title: Home
 ---
 
 <div class="intro">
-  <img src="image.jpeg" alt="Observing Program" class="intro-image">
+  <img src="image2.jpg" alt="Observing Program" class="intro-image">
   <h1>{{ site.title }}</h1>
   <p class="tagline">A large, collaborative sky survey for exploring the transient Universe.</p>
 </div>
