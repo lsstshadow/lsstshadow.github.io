@@ -5,7 +5,7 @@ title: Home
 
 <div class="intro">
   
-  <h1>👻{{ site.title }}🦈</h1>
+  <h1><span style="font-size:1.2em; vertical-align:middle;">👻</span>{{ site.title }}<span style="font-size:1.2em; vertical-align:middle;">🦈</span></h1>
   <p class="tagline">A collaboration of humans who want to find things that go bump in the night.</p>
   <img src="image.jpeg" alt="Observing Program" class="intro-image">
 </div>
