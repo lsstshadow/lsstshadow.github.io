@@ -63,3 +63,24 @@ title: Home
     <p><a href="/team/jane-doe">Jane Doe</a></p>
   </div>
 </section>
+
+<section class="highlights">
+  <div class="highlight-box">
+    <h2>Latest Transient</h2>
+    {% assign latest_transient = site.categories.transients | first %}
+    <p><a href="{{ latest_transient.url }}">{{ latest_transient.title }}</a> <br>
+    <small>{{ latest_transient.date | date: "%B %d, %Y" }}</small></p>
+  </div>
+
+  <div class="highlight-box">
+    <h2>Latest Publication</h2>
+    {% assign latest_pub = site.categories.publications | first %}
+    <p><a href="{{ latest_pub.url }}">{{ latest_pub.title }}</a> <br>
+    <small>{{ latest_pub.date | date: "%B %d, %Y" }}</small></p>
+  </div>
+
+  <div class="highlight-box">
+    <h2>Featured Team Member</h2>
+    <div id="featured-member"></div>
+  </div>
+</section>
