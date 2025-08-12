@@ -84,3 +84,48 @@ title: Home
     <div id="featured-member"></div>
   </div>
 </section>
+
+<section class="highlights">
+  <div class="highlight-box">
+    <h2>Latest Transient</h2>
+    {% assign latest_transient = site.categories.transients | first %}
+    <p>
+      <a href="{{ latest_transient.url }}">{{ latest_transient.title }}</a><br>
+      <small>{{ latest_transient.date | date: "%B %d, %Y" }}</small>
+    </p>
+  </div>
+
+  <div class="highlight-box">
+    <h2>Latest Publication</h2>
+    {% assign latest_pub = site.categories.publications | first %}
+    <p>
+      <a href="{{ latest_pub.url }}">{{ latest_pub.title }}</a><br>
+      <small>{{ latest_pub.date | date: "%B %d, %Y" }}</small>
+    </p>
+  </div>
+
+  <div class="highlight-box">
+    <h2>Featured Team Member</h2>
+    <div id="featured-member"></div>
+  </div>
+</section>
+
+<script>
+  const team = [
+    { name: "Richard Gecko", role: "Overlord", photo: "richard.jpg" },
+    { name: "Jane Doe", role: "Spectroscopy Expert", photo: "jane.jpg" },
+    { name: "Max Stellar", role: "Data Wrangler", photo: "max.jpg" }
+  ];
+
+  // Rotate daily based on day of the year
+  const today = new Date();
+  const index = today.getDate() % team.length;
+  const member = team[index];
+
+  document.getElementById("featured-member").innerHTML = `
+    <img src="${member.photo}" alt="${member.name}" style="width:100px;border-radius:50%;margin-bottom:10px;">
+    <h3>${member.name}</h3>
+    <p>${member.role}</p>
+  `;
+</script>
+
