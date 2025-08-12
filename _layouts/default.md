@@ -47,9 +47,42 @@
       padding: 2rem;
     }
     .emoji {
-    font-size: 1.2em;   /* Change emoji size only */
+    font-size: 1.2rem;   /* Change emoji size only */
     vertical-align: middle; /* Keeps it aligned with text */
     }
+    .highlights {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap; /* Makes it stack on small screens */
+    }
+    .highlight-box {
+      flex: 1 1 250px; /* Min width of box */
+      max-width: 300px;
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .highlight-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    }
+    .highlight-box h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .highlight-box a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    .highlight-box a:hover {
+      text-decoration: underline;
 
   </style>
 
