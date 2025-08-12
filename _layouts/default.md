@@ -46,6 +46,11 @@
       margin: 0 auto;
       padding: 2rem;
     }
+    .emoji {
+    font-size: 1.2em;   /* Change emoji size only */
+    vertical-align: middle; /* Keeps it aligned with text */
+    }
+
   </style>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.css">
