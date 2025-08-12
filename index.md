@@ -7,7 +7,7 @@ title: Home
   
   <h1>{&#128123{ site.title }&#128123}</h1>
   <p class="tagline">A collaboration of humans who want to find things that go bump in the night.</p>
-  <img src="image2.jpg" alt="Observing Program" class="intro-image">
+  <img src="image.jpeg" alt="Observing Program" class="intro-image">
 </div>
 
 <section class="about">
