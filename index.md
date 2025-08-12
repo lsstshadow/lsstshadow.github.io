@@ -26,3 +26,22 @@ title: Home
 <p><a href="{{ latest_pub.url }}">{{ latest_pub.title }}</a> <br>
 <small>{{ latest_pub.date | date: "%B %d, %Y" }}</small></p>
 
+<h2>Featured Team Member</h2>
+<div id="featured-member"></div>
+
+<script>
+  const team = [
+    { name: "Richard Gecko", role: "Overlord", photo: "/assets/team/richard.jpg" },
+  ];
+
+  // Pick based on day of the year so it changes daily
+  const today = new Date();
+  const index = today.getDate() % team.length; // or use getDay() for day-of-week
+  const member = team[index];
+
+  document.getElementById("featured-member").innerHTML = `
+    <img src="${member.photo}" alt="${member.name}" style="width:150px;border-radius:50%;">
+    <h3>${member.name}</h3>
+    <p>${member.role}</p>
+  `;
+</script>
