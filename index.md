@@ -45,3 +45,21 @@ title: Home
     <p>${member.role}</p>
   `;
 </script>
+
+
+<section class="highlights">
+  <div class="highlight-box">
+    <h2>Latest Transient</h2>
+    <p><a href="/transients/latest">SN2025abc discovered at ZTF</a></p>
+  </div>
+
+  <div class="highlight-box">
+    <h2>Latest Publication</h2>
+    <p><a href="/publications/latest">"Shock Interaction in SN2023jgf"</a></p>
+  </div>
+
+  <div class="highlight-box">
+    <h2>Featured Team Member</h2>
+    <p><a href="/team/jane-doe">Jane Doe</a></p>
+  </div>
+</section>
