@@ -55,7 +55,7 @@
       <a href="/about/">About</a> |
       <a href="/team/">Team</a> |
       <a href="/transients/">Transients!!!</a> |
-      <a href="/News/">News</a> |
+      <a href="/news/">News</a> |
       <a href="/publications/">Publications</a>
     </nav>
   </header>
