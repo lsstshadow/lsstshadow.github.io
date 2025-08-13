@@ -15,7 +15,6 @@ title: Home
   <div style="text-align:right;">
     {% assign pub_count = site.categories.publications | size %}
     <h2>🦈 <span class="count" data-target="{{ pub_count }}">0</span> Publications</h2>
-    <p>Number of publication posts so far</p>
   </div>
 </div>
 
