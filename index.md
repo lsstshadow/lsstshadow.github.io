@@ -112,9 +112,8 @@ title: Home
 
 <script>
   const team = [
-    { name: "Richard Gecko", role: "Overlord", photo: "richard.jpg" },
-    { name: "Jane Doe", role: "Spectroscopy Expert", photo: "jane.jpg" },
-    { name: "Max Stellar", role: "Data Wrangler", photo: "max.jpg" }
+    { name: "Richard Gecko", role: "Role:Overlord", photo: "richard.jpg" },
+
   ];
 
   // Rotate daily based on day of the year
