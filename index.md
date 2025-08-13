@@ -46,7 +46,7 @@ title: Home
     <p>${member.role}</p>
   `;
 </script>
--->
+
 
 <section class="highlights">
   <div class="highlight-box">
@@ -86,6 +86,8 @@ title: Home
   </div>
 </section>
 
+-->
+
 <section class="highlights">
   <div class="highlight-box">
     <h2>Latest Transient</h2>
@@ -111,5 +113,21 @@ title: Home
   </div>
 </section>
 
+<script>
+  const team = [
+    { name: "Richard Gecko", role: "Role:Overlord", photo: "richard.jpg" }
+  ];
+
+  // Rotate daily based on day of the year
+  const today = new Date();
+  const index = today.getDate() % team.length;
+  const member = team[index];
+
+  document.getElementById("featured-member").innerHTML = `
+    <img src="${member.photo}" alt="${member.name}" style="width:100px;border-radius:50%;margin-bottom:10px;">
+    <h3>${member.name}</h3>
+    <p>${member.role}</p>
+  `;
+</script>
 
 
