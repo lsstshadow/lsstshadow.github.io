@@ -26,6 +26,7 @@ title: Home
 <p><a href="{{ latest_pub.url }}">{{ latest_pub.title }}</a> <br>
 <small>{{ latest_pub.date | date: "%B %d, %Y" }}</small></p>
 
+<!--
 <h2>Featured Team Member</h2>
 <div id="featured-member"></div>
 
@@ -45,7 +46,7 @@ title: Home
     <p>${member.role}</p>
   `;
 </script>
-
+-->
 
 <section class="highlights">
   <div class="highlight-box">
@@ -110,20 +111,5 @@ title: Home
   </div>
 </section>
 
-<script>
-  const team = [
-    { name: "Richard Gecko", role: "Role:Overlord", photo: "richard.jpg" }
-  ];
 
-  // Rotate daily based on day of the year
-  const today = new Date();
-  const index = today.getDate() % team.length;
-  const member = team[index];
-
-  document.getElementById("featured-member").innerHTML = `
-    <img src="${member.photo}" alt="${member.name}" style="width:100px;border-radius:50%;margin-bottom:10px;">
-    <h3>${member.name}</h3>
-    <p>${member.role}</p>
-  `;
-</script>
 
