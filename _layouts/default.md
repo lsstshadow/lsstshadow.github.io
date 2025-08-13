@@ -85,17 +85,18 @@
       display: block;
       margin: 0 auto;
     }
-
-
-  </style>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.css">
-  <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
-  <script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.css">
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
       twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
     });
   </script>
+
+
+  </style>
+
+  
 </head>
 <body>
   <header>
