@@ -112,8 +112,7 @@ title: Home
 
 <script>
   const team = [
-    { name: "Richard Gecko", role: "Role:Overlord", photo: "richard.jpg" },
-
+    { name: "Richard Gecko", role: "Role:Overlord", photo: "richard.jpg" }
   ];
 
   // Rotate daily based on day of the year
