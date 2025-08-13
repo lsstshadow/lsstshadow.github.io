@@ -47,7 +47,7 @@
       padding: 2rem;
     }
     .emoji {
-      font-size: 1.2rem;   /* Change emoji size only */
+      font-size: 20px;   /* Change emoji size only */
       vertical-align: middle; /* Keeps it aligned with text */
     }
     .highlights {
