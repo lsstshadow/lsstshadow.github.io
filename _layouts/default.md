@@ -47,42 +47,45 @@
       padding: 2rem;
     }
     .emoji {
-    font-size: 1.2rem;   /* Change emoji size only */
-    vertical-align: middle; /* Keeps it aligned with text */
+      font-size: 1.2rem;   /* Change emoji size only */
+      vertical-align: middle; /* Keeps it aligned with text */
     }
     .highlights {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 20px;
-    padding: 20px;
-    flex-wrap: wrap; /* Makes it stack on small screens */
-    }
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap; /* Responsive stacking on small screens */
+    } 
     .highlight-box {
-      flex: 1 1 250px; /* Min width of box */
+      flex: 1 1 250px;
       max-width: 300px;
-      background: #f8f9fa;
-      border: 1px solid #ddd;
+      background: #1c1c1c; /* Dark theme */
+      color: #f8f8f8;
+      border: 1px solid #444;
       border-radius: 10px;
       padding: 15px;
       text-align: center;
-      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.4);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .highlight-box:hover {
       transform: translateY(-3px);
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-    }
-    .highlight-box h2 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+    }  
     .highlight-box a {
-      color: #007acc;
+      color: #66ccff;
       text-decoration: none;
-    }
+    } 
     .highlight-box a:hover {
       text-decoration: underline;
+    }
+    .highlight-box img {
+      display: block;
+      margin: 0 auto;
+    }
+
 
   </style>
 
