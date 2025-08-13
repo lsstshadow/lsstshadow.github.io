@@ -34,7 +34,7 @@
       margin-bottom: 1rem;
     }
     h1 {
-      font-size: 2rem;
+      font-size: 4rem;
       margin-bottom: 0.5rem;
     }
     .tagline {
@@ -47,7 +47,7 @@
       padding: 2rem;
     }
     .emoji {
-      font-size: 20px;   /* Change emoji size only */
+      font-size: 0.2rem;   /* Change emoji size only */
       vertical-align: middle; /* Keeps it aligned with text */
     }
     .highlights {
