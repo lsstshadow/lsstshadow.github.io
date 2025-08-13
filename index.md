@@ -5,7 +5,7 @@ title: Home
 
 <div class="intro">
   
-  <h1> <span class="emoji">👻</span> {{ site.title }} <span class = "emoji">🦈</span> </h1>
+   <span class="emoji">👻</span> <h1> {{ site.title }} </h1> <span class = "emoji">🦈</span> 
   <p class="tagline">A collaboration of humans who want to find things that go bump in the night.</p>
   <img src="image.jpeg" alt="Observing Program" class="intro-image">
 </div>
@@ -16,6 +16,7 @@ title: Home
   </p>
 </section>
 
+<!--
 <h2>Latest Transient</h2>
 {% assign latest_transient = site.categories.transients | first %}
 <p><a href="{{ latest_transient.url }}">{{ latest_transient.title }}</a> <br>
@@ -26,7 +27,7 @@ title: Home
 <p><a href="{{ latest_pub.url }}">{{ latest_pub.title }}</a> <br>
 <small>{{ latest_pub.date | date: "%B %d, %Y" }}</small></p>
 
-<!--
+
 <h2>Featured Team Member</h2>
 <div id="featured-member"></div>
 
