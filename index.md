@@ -3,6 +3,22 @@ layout: default
 title: Home
 ---
 
+<div style="display:flex;gap:2rem;justify-content:center;align-items:center;">
+  <!-- Transient counter -->
+  <div style="text-align:left;">
+    {% assign transient_count = site.categories.transients | size %}
+    <h2>🌠 <span class="count" data-target="{{ transient_count }}">0</span> Transients</h2>
+    <p>Number of transient posts so far</p>
+  </div>
+
+  <!-- Publication counter -->
+  <div style="text-align:right;">
+    {% assign pub_count = site.categories.publications | size %}
+    <h2>📚 <span class="count" data-target="{{ pub_count }}">0</span> Publications</h2>
+    <p>Number of publication posts so far</p>
+  </div>
+</div>
+
 <div class="intro">
   
   <h1> <span class="emoji">👻</span> {{ site.title }} <span class = "emoji">🦈</span> </h1>  
@@ -131,26 +147,12 @@ title: Home
   `;
 </script>
 
-<div style="display:flex;gap:2rem;justify-content:center;align-items:center;">
-  <!-- Transient counter -->
-  <div style="text-align:center;">
-    {% assign transient_count = site.categories.transients | size %}
-    <h2>🌠 <span class="count" data-target="{{ transient_count }}">0</span> Transients</h2>
-    <p>Number of transient posts so far</p>
-  </div>
 
-  <!-- Publication counter -->
-  <div style="text-align:center;">
-    {% assign pub_count = site.categories.publications | size %}
-    <h2>📚 <span class="count" data-target="{{ pub_count }}">0</span> Publications</h2>
-    <p>Number of publication posts so far</p>
-  </div>
-</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const counters = document.querySelectorAll(".count");
-    const speed = 200; // smaller = faster
+    const speed = 500; // smaller = faster
 
     counters.forEach(counter => {
       const target = +counter.getAttribute("data-target");
