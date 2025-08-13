@@ -98,20 +98,44 @@
     font-weight: bold;
     color: #ffdf00;
     padding: 0.2em 0.4em;
-  }
-  .authors::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    width: calc(100% + 6px);
-    height: calc(100% + 6px);
-    background: radial-gradient(circle at center, rgba(255,255,0,0.7), transparent 70%);
-    opacity: 0.6;
-    border-radius: 4px;
-    filter: blur(3px);
-    z-index: -1;
-  }
+    }
+    .authors::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: calc(100% + 6px);
+      height: calc(100% + 6px);
+      background: radial-gradient(circle at center, rgba(255,255,0,0.7), transparent 70%);
+      opacity: 0.6;
+      border-radius: 4px;
+      filter: blur(3px);
+      z-index: -1;
+    }
+    .latest-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }  
+    .card {
+      background: #ffffff;
+      color: #333;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      flex: 1 1 280px;
+      max-width: 300px;
+    } 
+    .card h3 {
+      margin-top: 0;
+      color: #007acc;
+    } 
+    .card p {
+      margin: 0.5rem 0;
+    }
+
   </style>
 
   
