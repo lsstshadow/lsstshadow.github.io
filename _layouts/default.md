@@ -92,8 +92,26 @@
       twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
     });
   </script>
-
-
+  .authors {
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+    color: #ffdf00;
+    padding: 0.2em 0.4em;
+  }
+  .authors::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    background: radial-gradient(circle at center, rgba(255,255,0,0.7), transparent 70%);
+    opacity: 0.6;
+    border-radius: 4px;
+    filter: blur(3px);
+    z-index: -1;
+  }
   </style>
 
   
