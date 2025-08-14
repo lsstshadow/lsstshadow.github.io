@@ -148,6 +148,7 @@
 </head>
 <body>
   <header>
+    <img class="logo" src="logo.png" alt="logo">
     <nav>
       <a href="/">Home</a> |
       <a href="/about/">About</a> |
