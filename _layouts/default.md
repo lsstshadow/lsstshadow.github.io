@@ -136,8 +136,8 @@
       margin: 0.5rem 0;
     }
     .logo {
-      width: 400px;
-      height: 400px;
+      width: 100px;
+      height: 100px;
       top: 0;
       left: 0;
     }
