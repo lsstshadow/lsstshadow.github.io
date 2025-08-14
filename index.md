@@ -3,7 +3,7 @@ layout: default
 title: Home
 ---
 
-<img class="logo" src="logo.jpg" alt="logo">
+<img class="logo" src="logo.png" alt="logo">
 
 <div style="display:flex;gap:0.5rem;justify-content:center;align-items:center;">
   <!-- Transient counter -->
