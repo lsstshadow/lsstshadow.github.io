@@ -135,6 +135,12 @@
     .card p {
       margin: 0.5rem 0;
     }
+    .logo {
+      width: 400px;
+      height: 400px;
+      top: 0;
+      left: 0;
+    }
 
   </style>
 
