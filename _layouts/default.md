@@ -153,7 +153,7 @@
       <a href="/">Home</a> |
       <a href="/about/">About</a> |
       <a href="/team/">Team</a> |
-      <a href="/candidates/">Candidates</a> |
+      <a href="/vetting/">Candidates</a> |
       <a href="/transients/">Transients!!!</a> |
       <a href="/news/">News</a> |
       <a href="/publications/">Publications</a>
