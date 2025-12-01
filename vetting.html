@@ -680,9 +680,9 @@ permalink: /vetting/
             }
             
             return `
-                <div class="candidate-card ${statusClass} ${repeatClass}" data-name="${candidate.name}">
+                <div class="candidate-card ${statusClass} ${repeatClass}" data-name="${candidate.objid}">
                     <div class="candidate-header">
-                        <div class="candidate-name">${candidate.name}</div>
+                        <div class="candidate-name">${candidate.objid}</div>
                         <div class="badges">
                             ${candidate.isRepeat ? '<span class="status-badge status-repeat">REPEAT</span>' : ''}
                             ${vetting.status ? `<span class="status-badge status-${vetting.status}">${vetting.status.toUpperCase()}</span>` : ''}
@@ -711,13 +711,13 @@ permalink: /vetting/
 
                     <div class="vetting-section">
                         <div class="vetting-buttons">
-                            <button class="vet-btn approve-btn" onclick="vetCandidate('${candidate.name}', 'approved')">✓ Approve</button>
-                            <button class="vet-btn reject-btn" onclick="vetCandidate('${candidate.name}', 'rejected')">✗ Reject</button>
-                            <button class="vet-btn clear-btn" onclick="clearVetting('${candidate.name}')">Clear</button>
+                            <button class="vet-btn approve-btn" onclick="vetCandidate('${candidate.objid}', 'approved')">✓ Approve</button>
+                            <button class="vet-btn reject-btn" onclick="vetCandidate('${candidate.objid}', 'rejected')">✗ Reject</button>
+                            <button class="vet-btn clear-btn" onclick="clearVetting('${candidate.objid}')">Clear</button>
                         </div>
                         <div class="comments-box">
                             <textarea placeholder="Add comments..." 
-                                      onchange="updateComments('${candidate.name}', this.value)">${vetting.comments || ''}</textarea>
+                                      onchange="updateComments('${candidate.objid}', this.value)">${vetting.comments || ''}</textarea>
                         </div>
                     </div>
                 </div>
