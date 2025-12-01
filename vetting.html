@@ -659,7 +659,7 @@ permalink: /vetting/
             const statusClass = vetting.status ? `vetted-${vetting.status}` : '';
             const repeatClass = candidate.isRepeat ? 'repeat-detection' : '';
             
-            const thumbnailPath = candidate.thumbnail || `${candidate.objid}.png`;
+            const thumbnailPath = candidate.thumbnail ||`${candidate.num_alert}_${candidate.objid}.png`;
             const fullImageUrl = imageBase + thumbnailPath;
 
             let repeatHtml = '';
