@@ -1,3 +1,12 @@
 #theme: default
 title: Shadow
 description: Team page for the LSST Shadowing program with DECam
+
+header_pages:
+- index.md
+- about.md
+- team.md
+- vetting.html
+- transients.md
+- news.md
+- publications.md
