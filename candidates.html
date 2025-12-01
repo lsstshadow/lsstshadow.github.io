@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Transient Candidate Vetting</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: #161b22;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+        }
+
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+        }
+
+        .config-section {
+            background: #161b22;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+        }
+
+        .config-title {
+            color: #58a6ff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .config-inputs {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+
+        .input-group input {
+            padding: 8px 12px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-family: inherit;
+        }
+
+        .input-group small {
+            color: #6e7681;
+            font-size: 0.85em;
+        }
+
+        .controls {
+            background: #161b22;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn, .export-btn, .refresh-btn, .save-config-btn {
+            padding: 8px 15px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .export-btn:hover, .refresh-btn:hover, .save-config-btn:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+
+        .filter-btn.active {
+            background: #1f6feb;
+            border-color: #1f6feb;
+            color: white;
+        }
+
+        .refresh-btn {
+            background: #238636;
+            color: white;
+        }
+
+        .refresh-btn:hover {
+            background: #2ea043;
+        }
+
+        .save-config-btn {
+            background: #1f6feb;
+            color: white;
+        }
+
+        .candidates {
+            display: grid;
+            gap: 20px;
+        }
+
+        .candidate-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .candidate-card:hover {
+            border-color: #58a6ff;
+        }
+
+        .candidate-card.vetted-approved {
+            border-left: 4px solid #3fb950;
+        }
+
+        .candidate-card.vetted-rejected {
+            border-left: 4px solid #f85149;
+        }
+
+        .candidate-card.repeat-detection {
+            border-right: 4px solid #f0883e;
+        }
+
+        .candidate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .candidate-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+
+        .badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .candidate-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            background: #0d1117;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .info-label {
+            color: #8b949e;
+            font-size: 0.85em;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            color: #c9d1d9;
+            font-weight: 500;
+        }
+
+        .thumbnail-container {
+            background: #0d1117;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .thumbnail-label {
+            color: #8b949e;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+
+        .thumbnail-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .repeat-info {
+            background: #3d2800;
+            border: 1px solid #f0883e;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .repeat-info-title {
+            color: #f0883e;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .repeat-list {
+            color: #c9d1d9;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .vetting-section {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: start;
+        }
+
+        .vetting-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .vet-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .approve-btn {
+            background: #238636;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background: #2ea043;
+        }
+
+        .reject-btn {
+            background: #da3633;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #f85149;
+        }
+
+        .clear-btn {
+            background: #6e7681;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: #8b949e;
+        }
+
+        .comments-box {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .comments-box textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .status-approved {
+            background: #238636;
+            color: white;
+        }
+
+        .status-rejected {
+            background: #da3633;
+            color: white;
+        }
+
+        .status-repeat {
+            background: #f0883e;
+            color: white;
+        }
+
+        .stats {
+            background: #0d1117;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            color: #8b949e;
+        }
+
+        .stat-value {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #8b949e;
+        }
+
+        .error-message {
+            background: #3d0d0d;
+            border: 1px solid #f85149;
+            color: #ffa198;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .last-update {
+            color: #6e7681;
+            font-size: 0.85em;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-buttons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 Transient Candidate Vetting</h1>
+            <p>Real-time review of astronomical transient candidates</p>
+        </header>
+
+        <div class="config-section">
+            <div class="config-title">📁 Data Directory Configuration</div>
+            <div class="config-inputs">
+                <div class="input-group">
+                    <label>Data Directory URL (e.g., GitHub raw content URL or relative path)</label>
+                    <input type="text" id="dataDirectoryUrl" placeholder="https://raw.githubusercontent.com/user/repo/main/data/" />
+                    <small>Base URL where CSV files and images are stored</small>
+                </div>
+                <div class="input-group">
+                    <label>CSV Filename Pattern</label>
+                    <input type="text" id="csvPattern" placeholder="alerts_{date}.csv" value="alerts_{date}.csv" />
+                    <small>Use {date} for automatic date substitution (YYYY-MM-DD format)</small>
+                </div>
+                <div class="input-group">
+                    <label>Auto-refresh Interval (seconds)</label>
+                    <input type="number" id="refreshInterval" placeholder="300" value="300" min="30" />
+                    <small>How often to check for new data (minimum 30 seconds)</small>
+                </div>
+            </div>
+            <button class="save-config-btn" onclick="saveConfiguration()">💾 Save Configuration</button>
+        </div>
+
+        <div class="controls">
+            <button class="refresh-btn" onclick="loadLatestData()">🔄 Refresh Data</button>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Candidates</button>
+                <button class="filter-btn" data-filter="unvetted">Unvetted</button>
+                <button class="filter-btn" data-filter="approved">Approved</button>
+                <button class="filter-btn" data-filter="rejected">Rejected</button>
+                <button class="filter-btn" data-filter="repeats">Repeat Detections</button>
+            </div>
+
+            <button class="export-btn" onclick="exportVettingResults()">📥 Export Results</button>
+
+            <div class="stats" id="stats">
+                <div class="stat-item">Total: <span class="stat-value" id="totalCount">0</span></div>
+                <div class="stat-item">Approved: <span class="stat-value" id="approvedCount">0</span></div>
+                <div class="stat-item">Rejected: <span class="stat-value" id="rejectedCount">0</span></div>
+                <div class="stat-item">Repeats: <span class="stat-value" id="repeatCount">0</span></div>
+            </div>
+
+            <div class="last-update" id="lastUpdate"></div>
+        </div>
+
+        <div id="errorContainer"></div>
+
+        <div class="candidates" id="candidatesContainer">
+            <div class="loading">Configure data directory and click Refresh to load candidates</div>
+        </div>
+    </div>
+
+    <script>
+        let candidates = [];
+        let allCandidatesHistory = {}; // Stores all candidates seen across all nights
+        let vettingData = {};
+        let currentFilter = 'all';
+        let autoRefreshTimer = null;
+
+        // Load saved data on page load
+        function loadSavedData() {
+            const savedVetting = localStorage.getItem('transientVetting');
+            vettingData = savedVetting ? JSON.parse(savedVetting) : {};
+            
+            const savedHistory = localStorage.getItem('transientHistory');
+            allCandidatesHistory = savedHistory ? JSON.parse(savedHistory) : {};
+
+            const savedConfig = localStorage.getItem('vettingConfig');
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                document.getElementById('dataDirectoryUrl').value = config.dataDirectoryUrl || '';
+                document.getElementById('csvPattern').value = config.csvPattern || 'alerts_{date}.csv';
+                document.getElementById('refreshInterval').value = config.refreshInterval || 300;
+            }
+        }
+
+        function saveConfiguration() {
+            const config = {
+                dataDirectoryUrl: document.getElementById('dataDirectoryUrl').value,
+                csvPattern: document.getElementById('csvPattern').value,
+                refreshInterval: parseInt(document.getElementById('refreshInterval').value)
+            };
+            localStorage.setItem('vettingConfig', JSON.stringify(config));
+            setupAutoRefresh();
+            showMessage('Configuration saved!', 'success');
+        }
+
+        function saveVettingData() {
+            localStorage.setItem('transientVetting', JSON.stringify(vettingData));
+        }
+
+        function saveHistoryData() {
+            localStorage.setItem('transientHistory', JSON.stringify(allCandidatesHistory));
+        }
+
+        async function loadLatestData() {
+            const baseUrl = document.getElementById('dataDirectoryUrl').value.trim();
+            const pattern = document.getElementById('csvPattern').value.trim();
+
+            if (!baseUrl) {
+                showMessage('Please configure the data directory URL first', 'error');
+                return;
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+            const csvFilename = pattern.replace('{date}', today);
+            const csvUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + csvFilename;
+
+            showMessage('Loading data...', 'info');
+
+            try {
+                const response = await fetch(csvUrl);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`);
+                }
+
+                const csvText = await response.text();
+                
+                Papa.parse(csvText, {
+                    header: true,
+                    dynamicTyping: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        processCandidates(results.data, today);
+                        updateLastUpdateTime();
+                        showMessage('Data loaded successfully!', 'success');
+                    },
+                    error: function(error) {
+                        showMessage(`CSV parsing error: ${error.message}`, 'error');
+                    }
+                });
+
+            } catch (error) {
+                showMessage(`Error loading data: ${error.message}`, 'error');
+            }
+        }
+
+        function processCandidates(newCandidates, observationDate) {
+            candidates = newCandidates;
+
+            // Update history and check for repeats
+            candidates.forEach(candidate => {
+                const name = candidate.name;
+                
+                if (!allCandidatesHistory[name]) {
+                    allCandidatesHistory[name] = {
+                        firstSeen: observationDate,
+                        observations: []
+                    };
+                }
+                
+                // Add this observation if not already recorded
+                const obs = {
+                    date: observationDate,
+                    magnitude: candidate.magnitude || candidate.mag,
+                    filter: candidate.filter,
+                    ra: candidate.ra,
+                    dec: candidate.dec
+                };
+                
+                const alreadyRecorded = allCandidatesHistory[name].observations.some(
+                    o => o.date === observationDate
+                );
+                
+                if (!alreadyRecorded) {
+                    allCandidatesHistory[name].observations.push(obs);
+                }
+                
+                // Mark as repeat if seen on multiple nights
+                candidate.isRepeat = allCandidatesHistory[name].observations.length > 1;
+                candidate.repeatInfo = allCandidatesHistory[name];
+            });
+
+            saveHistoryData();
+            renderCandidates();
+        }
+
+        function setupAutoRefresh() {
+            if (autoRefreshTimer) {
+                clearInterval(autoRefreshTimer);
+            }
+
+            const interval = parseInt(document.getElementById('refreshInterval').value) * 1000;
+            if (interval >= 30000) { // Minimum 30 seconds
+                autoRefreshTimer = setInterval(loadLatestData, interval);
+            }
+        }
+
+        function showMessage(message, type) {
+            const container = document.getElementById('errorContainer');
+            const className = type === 'error' ? 'error-message' : 'loading';
+            container.innerHTML = `<div class="${className}">${message}</div>`;
+            
+            if (type === 'success' || type === 'info') {
+                setTimeout(() => {
+                    container.innerHTML = '';
+                }, 3000);
+            }
+        }
+
+        function updateLastUpdateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('lastUpdate').textContent = `Last update: ${timeString}`;
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderCandidates();
+            });
+        });
+
+        function exportVettingResults() {
+            const results = candidates.map(c => ({
+                ...c,
+                vetting_status: vettingData[c.name]?.status || 'unvetted',
+                vetting_comments: vettingData[c.name]?.comments || '',
+                is_repeat: c.isRepeat || false,
+                first_seen: c.repeatInfo?.firstSeen || '',
+                num_observations: c.repeatInfo?.observations.length || 1
+            }));
+
+            const csv = Papa.unparse(results);
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vetting_results_' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+        }
+
+        function renderCandidates() {
+            const container = document.getElementById('candidatesContainer');
+            
+            if (candidates.length === 0) {
+                container.innerHTML = '<div class="loading">No candidates loaded. Click Refresh to load data.</div>';
+                return;
+            }
+
+            // Filter candidates
+            let filtered = candidates.filter(c => {
+                const status = vettingData[c.name]?.status;
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'unvetted') return !status;
+                if (currentFilter === 'repeats') return c.isRepeat;
+                return status === currentFilter;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="loading">No candidates match the current filter</div>';
+                updateStats();
+                return;
+            }
+
+            const baseUrl = document.getElementById('dataDirectoryUrl').value.trim();
+            const imageBase = baseUrl + (baseUrl.endsWith('/') ? '' : '/');
+
+            container.innerHTML = filtered.map(candidate => {
+                const vetting = vettingData[candidate.name] || {};
+                const statusClass = vetting.status ? `vetted-${vetting.status}` : '';
+                const repeatClass = candidate.isRepeat ? 'repeat-detection' : '';
+                
+                // Get image path (single thumbnail with all three images)
+                const thumbnailPath = candidate.thumbnail || `${candidate.name}.png`;
+                const fullImageUrl = imageBase + thumbnailPath;
+
+                // Build repeat detection info
+                let repeatHtml = '';
+                if (candidate.isRepeat && candidate.repeatInfo) {
+                    const observations = candidate.repeatInfo.observations;
+                    repeatHtml = `
+                        <div class="repeat-info">
+                            <div class="repeat-info-title">🔄 Repeat Detection</div>
+                            <div class="repeat-list">
+                                First seen: ${candidate.repeatInfo.firstSeen}<br>
+                                Total observations: ${observations.length}<br>
+                                Previous detections: ${observations.map(o => 
+                                    `${o.date} (mag: ${o.magnitude}, ${o.filter})`
+                                ).join(', ')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                return `
+                    <div class="candidate-card ${statusClass} ${repeatClass}" data-name="${candidate.name}">
+                        <div class="candidate-header">
+                            <div class="candidate-name">${candidate.name}</div>
+                            <div class="badges">
+                                ${candidate.isRepeat ? '<span class="status-badge status-repeat">REPEAT</span>' : ''}
+                                ${vetting.status ? `<span class="status-badge status-${vetting.status}">${vetting.status.toUpperCase()}</span>` : ''}
+                            </div>
+                        </div>
+                        
+                        ${repeatHtml}
+
+                        <div class="candidate-info">
+                            ${Object.keys(candidate).filter(k => 
+                                !['name', 'thumbnail', 'isRepeat', 'repeatInfo'].includes(k)
+                            ).map(key => `
+                                <div class="info-item">
+                                    <div class="info-label">${key}</div>
+                                    <div class="info-value">${candidate[key] !== null && candidate[key] !== undefined ? candidate[key] : 'N/A'}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="thumbnail-container">
+                            <div class="thumbnail-label">Science | Reference | Difference</div>
+                            <img class="thumbnail-img" src="${fullImageUrl}" 
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'padding:20px; text-align:center; color:#f85149;\\'>Image not found: ${thumbnailPath}</div>';" 
+                                 alt="Transient thumbnails">
+                        </div>
+
+                        <div class="vetting-section">
+                            <div class="vetting-buttons">
+                                <button class="vet-btn approve-btn" onclick="vetCandidate('${candidate.name}', 'approved')">✓ Approve</button>
+                                <button class="vet-btn reject-btn" onclick="vetCandidate('${candidate.name}', 'rejected')">✗ Reject</button>
+                                <button class="vet-btn clear-btn" onclick="clearVetting('${candidate.name}')">Clear</button>
+                            </div>
+                            <div class="comments-box">
+                                <textarea placeholder="Add comments..." 
+                                          onchange="updateComments('${candidate.name}', this.value)">${vetting.comments || ''}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            updateStats();
+        }
+
+        function vetCandidate(name, status) {
+            if (!vettingData[name]) {
+                vettingData[name] = {};
+            }
+            vettingData[name].status = status;
+            vettingData[name].timestamp = new Date().toISOString();
+            saveVettingData();
+            renderCandidates();
+        }
+
+        function clearVetting(name) {
+            delete vettingData[name];
+            saveVettingData();
+            renderCandidates();
+        }
+
+        function updateComments(name, comments) {
+            if (!vettingData[name]) {
+                vettingData[name] = {};
+            }
+            vettingData[name].comments = comments;
+            saveVettingData();
+        }
+
+        function updateStats() {
+            const total = candidates.length;
+            const approved = Object.values(vettingData).filter(v => v.status === 'approved').length;
+            const rejected = Object.values(vettingData).filter(v => v.status === 'rejected').length;
+            const repeats = candidates.filter(c => c.isRepeat).length;
+
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('approvedCount').textContent = approved;
+            document.getElementById('rejectedCount').textContent = rejected;
+            document.getElementById('repeatCount').textContent = repeats;
+        }
+
+        // Initialize on page load
+        loadSavedData();
+        setupAutoRefresh();
+    </script>
+</body>
+</html>
