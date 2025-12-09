@@ -24,7 +24,7 @@ title: Home
   
   <h1> <span class="emoji">👻</span> {{ site.title }} <span class = "emoji">👻</span> </h1>  
   <p class="tagline">A collaboration of humans who want to find things that go bump in the night.</p>
-  <img src="image.jpeg" alt="Observing Program" class="intro-image">
+  <img src="big_logo.png" alt="Observing Program" class="intro-image">
 </div>
 
 <section class="about">
